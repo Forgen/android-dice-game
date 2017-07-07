@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.ridgelineapps.resdicegame"
         minSdkVersion 7
-        targetSdkVersion 26
+        targetSdkVersion 7
     }
 
     buildTypes {
