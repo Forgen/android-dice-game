@@ -35,8 +35,10 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);        
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if(android.os.Build.VERSION.SDK_INT < 11){
+            this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        }
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
         game = new Game();
@@ -55,9 +57,6 @@ public class MainActivity extends Activity {
    @Override
    public boolean onOptionsItemSelected(MenuItem item) {
       switch (item.getItemId()) {
-      case R.id.quit:
-         finish();
-         break;
       case R.id.restart:
           new AlertDialog.Builder(game.gameView.activity).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.restart_title))
           .setMessage(getResources().getString(R.string.restart_text)).setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
