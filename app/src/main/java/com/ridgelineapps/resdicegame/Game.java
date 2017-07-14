@@ -101,7 +101,7 @@ public class Game {
              if(!scored) {
                  scored = true;
                  if(playsheet.getScore() > 0) {
-                     HighScores.score(gameView.activity, playsheet.getScore());
+                    HighScores.score(gameView.activity, playsheet.getScore());
                  }
              }
          }

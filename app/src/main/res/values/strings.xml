@@ -20,4 +20,5 @@
     <string name="high_scores_menu">Top Scores</string>
     <string name="high_scores_toast">New High Score</string>
     <string name="high_scores_top_5_toast">New Top 5 Score</string>
+    <string name="toggle_scaling">Toggle Scaling</string>
 </resources>

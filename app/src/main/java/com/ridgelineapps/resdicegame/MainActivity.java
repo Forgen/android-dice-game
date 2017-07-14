@@ -20,8 +20,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,54 +31,78 @@ import android.view.Window;
 import android.view.WindowManager;
 
 public class MainActivity extends Activity {
-   
-   Game game;
-   
+
+    Game game;
+    boolean alwaysScale;
+    private boolean showScalingOption = false;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(android.os.Build.VERSION.SDK_INT < 11){
+        if (android.os.Build.VERSION.SDK_INT < 11) {
             this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        alwaysScale = prefs.getBoolean("always_scale", false);
         game = new Game();
         GameView gameView = new GameView(this, game);
         game.setGameView(gameView);
         setContentView(gameView);
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+        if(!showScalingOption)
+            menu.findItem(R.id.toggle_scaling).setVisible(false);
         return true;
     }
-    
-   @Override
-   public boolean onOptionsItemSelected(MenuItem item) {
-      switch (item.getItemId()) {
-      case R.id.restart:
-          new AlertDialog.Builder(game.gameView.activity).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.restart_title))
-          .setMessage(getResources().getString(R.string.restart_text)).setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
-              @Override
-              public void onClick(DialogInterface dialog, int which) {
-                  game.reset();
-              }
 
-          }).setNegativeButton(getResources().getString(R.string.no), null).show();
-         break;
-      case R.id.about:
-         startActivity(new Intent(MainActivity.this, About.class));
-         break;
-      case R.id.rules:
-         startActivity(new Intent(MainActivity.this, Rules.class));
-         break;
-      case R.id.high_scores:
-          startActivity(new Intent(MainActivity.this, HighScores.class));
-          break;
-      }
-      return true;
-   }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.restart:
+                new AlertDialog.Builder(game.gameView.activity).setIcon(android.R.drawable.ic_dialog_alert).setTitle(getResources().getString(R.string.restart_title))
+                        .setMessage(getResources().getString(R.string.restart_text)).setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        game.reset();
+                    }
+
+                }).setNegativeButton(getResources().getString(R.string.no), null).show();
+                break;
+            case R.id.about:
+                startActivity(new Intent(MainActivity.this, About.class));
+                break;
+            case R.id.rules:
+                startActivity(new Intent(MainActivity.this, Rules.class));
+                break;
+            case R.id.high_scores:
+                startActivity(new Intent(MainActivity.this, HighScores.class));
+                break;
+            case R.id.toggle_scaling:
+                alwaysScale =  !alwaysScale;
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean("always_scale", alwaysScale);
+                editor.commit();
+                if(game != null && game.gameView != null) {
+                    game.gameView.scaleInit = false;
+                    game.gameView.postInvalidate();
+                }
+                break;
+        }
+        return true;
+    }
+
+    public void showScalingOption() {
+        showScalingOption = true;
+        if (android.os.Build.VERSION.SDK_INT >= 11) {
+            invalidateOptionsMenu();
+        }
+    }
 }

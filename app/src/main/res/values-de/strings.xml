@@ -20,4 +20,5 @@
     <string name="high_scores_menu">Highscore</string>
     <string name="high_scores_toast">Neuer Highscore</string>
     <string name="high_scores_top_5_toast">Neuer Top 5 Highscore</string>
+    <string name="toggle_scaling">Skalierungsmodus</string>
 </resources>
