@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Catan Dice Game</string>
+    <string name="first_roll">1er Lancé</string>
+    <string name="second_roll">2ème Lancé</string>
+    <string name="third_roll">3ème Lancé</string>
+    <string name="play_again">Play again</string>
+    <string name="done">OK</string>
+    <string name="restart_title">Redémarrer</string>
+    <string name="restart_text">Êtes-vous sûr de vouloir redémarrer le jeu ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="quit">Quitter</string>
+    <string name="ok_button">OK</string>
+    <string name="about_menu">À propos</string>
+    <string name="rules_title">Règles du jeu de dés Catan</string>
+    <string name="rules_menu">Règles du jeu</string> 
+    <string name="high_scores_default">-</string>
+    <string name="high_scores_title">Meilleurs Scores</string>
+    <string name="high_scores_menu">Meilleurs Scores</string>
+    <string name="high_scores_toast">Nouveau Meilleur Score</string>
+    <string name="high_scores_top_5_toast">Nouveau Meilleur Score du TOP 5</string>
+    <string name="toggle_scaling">Toggle Scaling</string>
+</resources>
