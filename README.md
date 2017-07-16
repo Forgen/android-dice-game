@@ -1,4 +1,4 @@
-Catan Dice Game
+Resource Dice Game
 ===============
 
 This is a dice game similar to the Catan Dice Game. Information on the game can be found [here](http://boardgamegeek.com/boardgame/27710/catan-dice-game).
